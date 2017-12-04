@@ -1,1 +1,9 @@
 <h1>Contacts</h1>
+
+<div class="contacts-list">
+  <%= for contact <- @contacts do %>
+    <%= Map.get(contact, :name) %>
+    <%= Map.get(contact, :email) %>
+  <% end %>
+</div
+
