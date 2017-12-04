@@ -23,3 +23,15 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
   * `dev` is the integration branch for testing
   * feature branches should be named `X-feature-name` where `X` is the number
     of an issue descibing the feature
+
+### PR Checklist
+
+  PR's to a release branch should contain this completed checklist:
+
+  - [ ]  new functions have unit tests
+  - [ ] `mix test` returns 0
+  - [ ] `mix credo --strict` returns 0
+  - [ ] new features have integration tests
+  - [ ] all cypress integration tests are green
+
+  (TODO: automate this in CI)
