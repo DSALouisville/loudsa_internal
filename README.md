@@ -14,3 +14,12 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
   * Located in `cypress/integrations`
   * Run with `npx cypress open`
 
+### Branching strategy
+
+  * `master` is the production branch, (TODO: push to master should trigger CI
+    and deploy)
+  * `release-X.X.X` is the current release integration branch, feature branches
+    should branch from here
+  * `dev` is the integration branch for testing
+  * feature branches should be named `X-feature-name` where `X` is the number
+    of an issue descibing the feature
