@@ -6,9 +6,12 @@ describe('Contacts Page', () => {
     cy.get('h1').should('contain', 'Contacts')
   });
   it('shows contacts', () => {
-    cy.get('.contacts-list').should('contain', 'Bilbo Baggins')
-    cy.get('.contacts-list').should('contain', 'bilbo@shire.com')
-    cy.get('.contacts-list').should('contain', 'Frodo Baggins')
-    cy.get('.contacts-list').should('contain', 'frodo@shire.com')
+    cy.get('.contacts-list li .contact-name').should('contain', 'Bilbo Baggins')
+    cy.get('.contacts-list li .contact-email').should('contain', 'bilbo@shire.com')
+    cy.get('.contacts-list li .contact-name').should('contain', 'Frodo Baggins')
+    cy.get('.contacts-list li .contact-email').should('contain', 'frodo@shire.com')
+  });
+  it('links to contact show page', () => {
+
   });
 });
