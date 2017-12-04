@@ -18,11 +18,13 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
   * `master` is the production branch, (TODO: push to master should trigger CI
     and deploy)
-  * `release-X.X.X` is the current release integration branch, feature branches
+  * `release-X.X` is the current release integration branch, feature branches
     should branch from here
+  * `patch-X.X.X` is an integration branch for a bugfix. For small bugs, ok to
+    commit directly, for larger bugs use as a proper integration branch
   * `dev` is the integration branch for testing
-  * feature branches should be named `X-feature-name` where `X` is the number
-    of an issue descibing the feature
+  * feature/bugfix branches should be named `X-feature-name` where `X` is the number
+    of an issue descibing the feature/bug
 
 ### PR Checklist
 
