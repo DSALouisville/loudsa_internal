@@ -7,6 +7,13 @@ defmodule LoudsaInternal.ContactsController do
     contacts = Repo.all(Contact)
     conn
     |> assign(:contacts, contacts)
-    |> render "index.html"
+    |> render("index.html")
+  end
+
+  def show(conn, %{"id" => id}) do
+    contact = Repo.get(Contact, id)
+    conn
+    |> assign(:contact, contact)
+    |> render("show.html")
   end
 end

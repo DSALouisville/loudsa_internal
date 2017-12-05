@@ -3,10 +3,12 @@
 <div class="contacts-list">
   <ul>
     <%= for contact <- @contacts do %>
+      <a href=<%= "contact/#{Map.get(contact, :id)}" %>>
       <li>
         <span class="contact-name"><%= Map.get(contact, :name) %></span>
         <span class="contact-email"><%= Map.get(contact, :email) %></span>
       </li>
+      </a>
     <% end %>
   </ul>
 </div
