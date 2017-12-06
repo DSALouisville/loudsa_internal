@@ -24,4 +24,5 @@ defmodule LoudsaInternal.Contact do
     # credo:disable-for-next-line Credo.Check.Readability.MaxLineLength
     |> validate_format(:email, ~r/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
   end
+
 end

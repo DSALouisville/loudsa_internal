@@ -22,4 +22,15 @@ defmodule LoudsaInternal.ContactsController do
     conn
     |> render("create.html", changeset: changeset)
   end
+
+  def new(conn, params) do
+    params
+    |> Map.get("contact")
+    |> Contact.changeset
+    |> Repo.insert
+    contacts = Repo.all(Contact)
+    conn
+    |> assign(:contacts, contacts)
+    |> redirect(to: "/contacts")
+  end
 end
