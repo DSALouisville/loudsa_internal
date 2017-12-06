@@ -20,4 +20,10 @@ describe('Contacts', () => {
     cy.url().should('contain', 'contact/')
     cy.url().should('contain', '1')
   });
+  it('has a create contact page', () => {
+    cy.get('a').should('contain', 'Create');
+    cy.get('a').contains('Create').click();
+    cy.url().should('contain', 'contact/create');
+    cy.get('h1').should('contain', 'Create');
+  });
 });
