@@ -19,6 +19,7 @@ defmodule LoudsaInternal.Router do
     get "/", PageController, :index
     get "/contacts", ContactsController, :index
     get "/contact/:id", ContactsController, :show
+    get "/contacts/create", ContactsController, :create
   end
 
   # Other scopes may use custom stacks.

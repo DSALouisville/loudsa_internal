@@ -16,4 +16,9 @@ defmodule LoudsaInternal.ContactsController do
     |> assign(:contact, contact)
     |> render("show.html")
   end
+
+  def create(conn, _params) do
+    conn
+    |> render("create.html")
+  end
 end
