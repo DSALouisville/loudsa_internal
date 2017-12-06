@@ -25,5 +25,8 @@ describe('Contacts', () => {
     cy.get('a').contains('Create').click();
     cy.url().should('contain', 'contacts/create');
     cy.get('h1').should('contain', 'Create');
+    cy.get('label').should('contain', 'Name')
+    cy.get('label').should('contain', 'Email')
+    cy.get('button').should('contain', 'Submit')
   });
 });

@@ -16,7 +16,7 @@ defmodule LoudsaInternal.Contact do
   end
 
   @doc false
-  def changeset(%Contact{} = contact, attrs) do
+  def changeset(%Contact{} = contact, attrs \\ %{}) do
     contact
     |> cast(attrs, [:name, :email])
     |> validate_required([:name, :email])

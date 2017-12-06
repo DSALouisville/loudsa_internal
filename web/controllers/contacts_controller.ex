@@ -18,7 +18,8 @@ defmodule LoudsaInternal.ContactsController do
   end
 
   def create(conn, _params) do
+    changeset = Contact.changeset(%Contact{})
     conn
-    |> render("create.html")
+    |> render("create.html", changeset: changeset)
   end
 end
