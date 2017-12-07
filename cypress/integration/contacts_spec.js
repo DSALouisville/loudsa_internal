@@ -1,4 +1,5 @@
 import randomstring from 'randomstring';
+
 describe('Contacts', () => {
 
   beforeEach(() => {
