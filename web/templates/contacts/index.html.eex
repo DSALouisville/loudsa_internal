@@ -1,5 +1,5 @@
 <h1>Contacts</h1>
-
+<a href="contacts/create">Create a contact</a>
 <div class="contacts-list">
   <ul>
     <%= for contact <- @contacts do %>

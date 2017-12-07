@@ -16,4 +16,19 @@ defmodule LoudsaInternal.ContactsController do
     |> assign(:contact, contact)
     |> render("show.html")
   end
+
+  def create(conn, _params) do
+    changeset = Contact.changeset(%Contact{})
+    conn
+    |> render("create.html", changeset: changeset)
+  end
+
+  def new(conn, %{ "contact" => contact }) do
+    Contact.changeset(%Contact{}, contact)
+    |> Repo.insert
+    contacts = Repo.all(Contact)
+    conn
+    |> assign(:contacts, contacts)
+    |> redirect(to: "/contacts")
+  end
 end

@@ -16,7 +16,7 @@ defmodule LoudsaInternal.Contact do
   end
 
   @doc false
-  def changeset(%Contact{} = contact, attrs) do
+  def changeset(%Contact{} = contact, attrs \\ %{}) do
     contact
     |> cast(attrs, [:name, :email])
     |> validate_required([:name, :email])
@@ -24,4 +24,5 @@ defmodule LoudsaInternal.Contact do
     # credo:disable-for-next-line Credo.Check.Readability.MaxLineLength
     |> validate_format(:email, ~r/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
   end
+
 end
