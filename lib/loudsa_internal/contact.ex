@@ -11,6 +11,7 @@ defmodule LoudsaInternal.Contact do
   schema "contacts" do
     field :email, :string
     field :name, :string
+    field :phone, :string
 
     timestamps()
   end
@@ -27,12 +28,14 @@ defmodule LoudsaInternal.Contact do
   @doc false
   def changeset(%Contact{} = contact, attrs \\ %{}) do
     phone = clean_phone(attrs[:phone])
+    attrs_clean = Map.put(attrs, :phone, phone)
     contact
-    |> cast(attrs, [:name, :email, :phone])
+    |> cast(attrs_clean, [:name, :email, :phone])
     |> validate_required([:name, :email])
     |> validate_length(:name, min: 5)
     # credo:disable-for-next-line Credo.Check.Readability.MaxLineLength
     |> validate_format(:email, ~r/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    |> validate_format(:phone, ~r/[\d]{9}/)
   end
 
 end
