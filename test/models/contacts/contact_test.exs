@@ -9,6 +9,13 @@ defmodule LoudsaInternal.ContactTest do
   @bad_phone %{name: "Bilbo Baggins", email: "bilboshire.com", phone: "5551234"}
   @fixable_phone %{name: "Bilbo Baggins", email: "bilboshire.com", phone: " (502)  555-1234"}
 
+  test "clean phone number" do
+    assert Contact.clean_phone(nil) == nil
+    assert Contact.clean_phone("234") == "234"
+    assert Contact.clean_phone(" 234") == "234"
+    assert Contact.clean_phone(" 2~#$%3ilkfj 4i#$ ") == "234"
+  end
+
   test "valid changeset" do
     changeset = Contact.changeset(%Contact{}, @valid_attrs)
     assert changeset.valid?

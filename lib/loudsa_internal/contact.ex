@@ -15,10 +15,20 @@ defmodule LoudsaInternal.Contact do
     timestamps()
   end
 
+  def clean_phone(phone) when is_binary(phone) do
+    phone
+    |> String.replace(~r/[^\d]/, "")
+  end
+
+  def clean_phone(phone) when is_nil(phone) do
+    phone
+  end
+
   @doc false
   def changeset(%Contact{} = contact, attrs \\ %{}) do
+    phone = clean_phone(attrs[:phone])
     contact
-    |> cast(attrs, [:name, :email])
+    |> cast(attrs, [:name, :email, :phone])
     |> validate_required([:name, :email])
     |> validate_length(:name, min: 5)
     # credo:disable-for-next-line Credo.Check.Readability.MaxLineLength
