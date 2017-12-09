@@ -28,7 +28,7 @@ defmodule LoudsaInternal.Contact do
   @doc false
   def changeset(%Contact{} = contact, attrs \\ %{}) do
     phone = clean_phone(attrs[:phone])
-    attrs_clean = Map.put(attrs, :phone, phone)
+    attrs_clean = Map.put(attrs, "phone", phone)
     contact
     |> cast(attrs_clean, [:name, :email, :phone])
     |> validate_required([:name, :email])
