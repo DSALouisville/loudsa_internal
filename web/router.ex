@@ -19,6 +19,7 @@ defmodule LoudsaInternal.Router do
     get "/", PageController, :index
     get "/contacts", ContactsController, :index
     get "/contact/:id", ContactsController, :show
+    delete "/contact/:id", ContactsController, :delete
     get "/contacts/create", ContactsController, :create
     post "/contacts/create", ContactsController, :new
 

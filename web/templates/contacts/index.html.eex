@@ -3,10 +3,18 @@
 <div class="contacts-list">
   <ul>
     <%= for contact <- @contacts do %>
-      <a href=<%= "contact/#{Map.get(contact, :id)}" %>>
       <li>
-        <span class="contact-name"><%= Map.get(contact, :name) %></span>
-        <span class="contact-email"><%= Map.get(contact, :email) %></span>
+        <a href=<%= "/contact/#{Map.get(contact, :id)}" %>>
+          <span class="contact-name"><%= Map.get(contact, :name) %></span>
+          <span class="contact-email"><%= Map.get(contact, :email) %></span>
+        </a>
+        <%= link(
+          "X",
+          to: "/contact/#{Map.get(contact, :id)}",
+          data: [confirm: "Really delete contact #{Map.get(contact, :name)}?"],
+          class: "delete",
+          method: :delete)
+        %>
       </li>
       </a>
     <% end %>
