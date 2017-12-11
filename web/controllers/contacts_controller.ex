@@ -1,7 +1,7 @@
 defmodule LoudsaInternal.ContactsController do
   use LoudsaInternal.Web, :controller
 
-  alias LoudsaInternal.{Repo, Contact}
+  alias LoudsaInternal.{Repo, Contact, ErrorHelpers}
 
   def index(conn, _params) do
     contacts = Repo.all(Contact)
@@ -23,12 +23,20 @@ defmodule LoudsaInternal.ContactsController do
     |> render("create.html", changeset: changeset)
   end
 
-  def new(conn, %{ "contact" => contact }) do
-    Contact.changeset(%Contact{}, contact)
-    |> Repo.insert
-    contacts = Repo.all(Contact)
-    conn
-    |> assign(:contacts, contacts)
-    |> redirect(to: "/contacts")
+  def new(conn, %{"contact" => contact}) do
+    changeset = Contact.changeset(%Contact{}, contact)
+    insert_result = changeset |> Repo.insert
+    case insert_result do
+      {:ok, _} ->
+        contacts = Repo.all(Contact)
+        conn
+        |> assign(:contacts, contacts)
+        |> put_flash(:info, "Created contact #{contact["name"]}")
+        |> redirect(to: "/contacts")
+      {:error, err} ->
+        conn
+        |> put_flash(:error, ErrorHelpers.get_errors(err))
+        |> render("create.html", changeset: Contact.changeset(%Contact{}, contact))
+    end
   end
 end
