@@ -56,6 +56,7 @@ defmodule LoudsaInternal.Web do
       import LoudsaInternal.Router.Helpers
       import LoudsaInternal.ErrorHelpers
       import LoudsaInternal.Gettext
+      import LoudsaInternal.InputHelpers
     end
   end
 

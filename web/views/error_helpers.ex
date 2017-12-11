@@ -4,6 +4,7 @@ defmodule LoudsaInternal.ErrorHelpers do
   """
 
   use Phoenix.HTML
+  import Ecto.Changeset
 
   @doc """
   Generates tag for inlined form input errors.
@@ -37,4 +38,13 @@ defmodule LoudsaInternal.ErrorHelpers do
       Gettext.dgettext(LoudsaInternal.Gettext, "errors", msg, opts)
     end
   end
+
+  def get_errors(res) do
+    errs = traverse_errors(res, fn(changeset, field, err) ->
+      {msg, _} = err
+      "#{Atom.to_string(field)}: #{msg}"
+    end)
+    errs |> Map.values
+  end
+
 end

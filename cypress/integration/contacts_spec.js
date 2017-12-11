@@ -45,8 +45,19 @@ describe('Contacts', () => {
     const name = randomstring.generate(7);
     cy.get('input[name="contact[name]"]').type(name);
     cy.get('input[name="contact[email]"]').type("fake@email.com");
+    cy.get('input[name="contact[phone]"]').type("(502)345-2345");
     cy.get('button').click();
     cy.url().should('eq', 'http://localhost:4000/contacts');
     cy.get('li').should('contain', name)
+  });
+
+  it('validations on inputs', () => {
+    cy.visit('http://localhost:4000/contacts/create');
+    cy.get('input[name="contact[name]"]').type('carg')
+    cy.get('input[name="contact[email]"]').type("fake@email.com");
+    cy.get('input[name="contact[phone]"]').type("(502)345-2345");
+    cy.get('button').click();
+    cy.get('.alert-danger').should('contain', 'name')
+    cy.get('.alert-danger').should('contain', 'least')
   });
 });

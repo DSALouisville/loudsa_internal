@@ -1,13 +1,8 @@
 <h1>Create a contact</h1>
 
 <%= form_for @changeset, contacts_path(@conn, :create), fn f -> %>
-  <label>
-    Name: <%= text_input f, :name %>
-  </label>
-
-  <label>
-    Email: <%= text_input f, :email %>
-  </label>
-
+  <%= input f, :name %>
+  <%= input f, :email %>
+  <%= input f, :phone %>
   <%= submit "Submit" %>
 <% end %>
