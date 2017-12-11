@@ -1,7 +1,7 @@
 defmodule LoudsaInternal.ContactsController do
   use LoudsaInternal.Web, :controller
 
-  alias LoudsaInternal.{Repo, Contact, ErrorHelpers}
+  alias LoudsaInternal.{Repo, Contact, DeletedContact, ErrorHelpers}
 
   def index(conn, _params) do
     contacts = Repo.all(Contact)
@@ -21,6 +21,17 @@ defmodule LoudsaInternal.ContactsController do
     changeset = Contact.changeset(%Contact{})
     conn
     |> render("create.html", changeset: changeset)
+  end
+
+  def delete(conn, %{"id" => id} = params) do
+    contact = Repo.get(Contact, id)
+    Repo.delete(contact)
+    changeset = DeletedContact.changeset(%DeletedContact{}, Map.from_struct(contact))
+    Repo.insert(changeset)
+    contacts = Repo.all(Contact)
+    conn
+    |> assign(:contacts, contacts)
+    |> render("index.html")
   end
 
   def new(conn, %{"contact" => contact}) do
