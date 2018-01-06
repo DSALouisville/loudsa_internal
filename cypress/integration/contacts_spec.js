@@ -68,7 +68,6 @@ describe('Contacts', () => {
 
   it('view/edit contact', () => {
     cy.visit('http://localhost:4000/contact/1');
-
     cy.get('.show-field-label').should('contain', 'Name')
     cy.get('.show-field-label').should('contain', 'Phone')
     cy.get('.show-field-label').should('contain', 'Email')

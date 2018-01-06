@@ -1,1 +1,10 @@
-<h1><%= Map.get(@contact, :name) %>
+<h1><%= Map.get(@contact, :name) %></h1>
+
+<div class="show-field-label">
+  Name
+</div>
+<div class="show-field-content">
+  <%= Map.get(@contact, :name) %>
+  <button type="button"> E </button>
+</div>
+
