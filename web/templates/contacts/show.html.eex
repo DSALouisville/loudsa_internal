@@ -1,21 +1,14 @@
 <h1><%= Map.get(@contact, :name) %></h1>
 
-<div class="show-field-label">
-  Name
-</div>
-<div class="show-field-content">
-  <%= Map.get(@contact, :name) %>
-  <button type="button"> E </button>
-</div>
-<div class="edit-field-content">
-  <%= render LoudsaInternal.ContactsView, "_edit_field.html", changeset: @changeset, field: :name, conn: @conn, contact: @contact%>
-</div>
-
-<div class="show-field-content">
-  <%= Map.get(@contact, :email) %>
-  <button type="button"> E </button>
-</div>
-<div class="edit-field-content">
-  <%= render LoudsaInternal.ContactsView, "_edit_field.html", changeset: @changeset, field: :email, conn: @conn, contact: @contact%>
-</div>
-
+<%= for key <- Map.keys(@contact) do %>
+  <%= if String.starts_with?(Atom.to_string(key), "_") do %>
+  <% else %>
+    <div class="show-field-content">
+      <%= Map.get(@contact, key) %>
+      <button type="button"> E </button>
+    </div>
+    <div class="edit-field-content">
+      <%= render LoudsaInternal.ContactsView, "_edit_field.html", changeset: @changeset, field: key, conn: @conn, contact: @contact%>
+    </div>
+  <% end %>
+<% end %>
