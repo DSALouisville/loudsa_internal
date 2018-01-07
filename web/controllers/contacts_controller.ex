@@ -3,7 +3,24 @@ defmodule LoudsaInternal.ContactsController do
 
   alias LoudsaInternal.{Repo, Contact, DeletedContact, ErrorHelpers}
 
+  def to_atoms(map) do
+    for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
+  end
+
   def index(conn, _params) do
+    contacts = Repo.all(Contact)
+    conn
+    |> assign(:contacts, contacts)
+    |> render("index.html")
+  end
+
+  def update(conn, params) do
+    IO.inspect(params)
+    old_contact = Repo.get!(Contact, params["id"])
+                  |> IO.inspect
+    new_contact = Ecto.Changeset.change(old_contact, to_atoms(params["contact"]))
+                  |> IO.inspect
+    IO.inspect Repo.update new_contact
     contacts = Repo.all(Contact)
     conn
     |> assign(:contacts, contacts)
@@ -14,7 +31,7 @@ defmodule LoudsaInternal.ContactsController do
     contact = Repo.get(Contact, id)
     conn
     |> assign(:contact, contact)
-    |> render("show.html")
+    |> render("show.html", changeset: Contact.changeset(contact), contact: contact)
   end
 
   def create(conn, _params) do
