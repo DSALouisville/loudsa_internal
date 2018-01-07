@@ -15,16 +15,15 @@ defmodule LoudsaInternal.ContactsController do
   end
 
   def update(conn, params) do
-    IO.inspect(params)
     old_contact = Repo.get!(Contact, params["id"])
                   |> IO.inspect
     new_contact = Ecto.Changeset.change(old_contact, to_atoms(params["contact"]))
                   |> IO.inspect
-    IO.inspect Repo.update new_contact
-    contacts = Repo.all(Contact)
+    Repo.update(new_contact)
+    contact = Repo.get!(Contact, params["id"])
     conn
-    |> assign(:contacts, contacts)
-    |> render("index.html")
+    |> assign(:contact, contact)
+    |> render("show.html", changeset: Contact.changeset(contact), contact: contact)
   end
 
   def show(conn, %{"id" => id}) do

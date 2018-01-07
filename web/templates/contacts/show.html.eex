@@ -11,3 +11,11 @@
   <%= render LoudsaInternal.ContactsView, "_edit_field.html", changeset: @changeset, field: :name, conn: @conn, contact: @contact%>
 </div>
 
+<div class="show-field-content">
+  <%= Map.get(@contact, :email) %>
+  <button type="button"> E </button>
+</div>
+<div class="edit-field-content">
+  <%= render LoudsaInternal.ContactsView, "_edit_field.html", changeset: @changeset, field: :email, conn: @conn, contact: @contact%>
+</div>
+
