@@ -1,6 +1,6 @@
 <h1><%= Map.get(@contact, :name) %></h1>
 
-<%= for key <- Map.keys(@contact) do %>
+<%= for key <- LoudsaInternal.InputHelpers.clean_fields(@contact) do %>
   <%= if String.starts_with?(Atom.to_string(key), "_") do %>
   <% else %>
     <div class="show-field-content">

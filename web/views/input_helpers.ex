@@ -7,6 +7,16 @@ defmodule LoudsaInternal.InputHelpers do
   alias LoudsaInternal.ErrorHelpers
   alias Phoenix.HTML.Form
 
+  @doc """
+  Cleans list of fields to "human readable" ones
+  """
+  def clean_fields(map) do
+    Enum.filter(Map.keys(map), fn(x) ->
+      !String.starts_with?(Atom.to_string(x), "_") &&
+      !Enum.member?([:id, :inserted_at, :updated_at], x)
+    end)
+  end
+
   def input(form, field, opts \\ []) do
     type = Form.input_type(form, field)
 

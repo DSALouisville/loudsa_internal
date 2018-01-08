@@ -16,9 +16,7 @@ defmodule LoudsaInternal.ContactsController do
 
   def update(conn, params) do
     old_contact = Repo.get!(Contact, params["id"])
-                  |> IO.inspect
-    new_contact = Ecto.Changeset.change(old_contact, to_atoms(params["contact"]))
-                  |> IO.inspect
+    new_contact = Contact.changeset(old_contact, to_atoms(params["contact"]))
     Repo.update(new_contact)
     contact = Repo.get!(Contact, params["id"])
     conn
