@@ -17,11 +17,20 @@ defmodule LoudsaInternal.ContactsController do
   def update(conn, params) do
     old_contact = Repo.get!(Contact, params["id"])
     new_contact = Contact.changeset(old_contact, to_atoms(params["contact"]))
-    Repo.update(new_contact)
-    contact = Repo.get!(Contact, params["id"])
-    conn
-    |> assign(:contact, contact)
-    |> render("show.html", changeset: Contact.changeset(contact), contact: contact)
+    case Repo.update(new_contact) do
+      {:ok, _} ->
+        contact = Repo.get!(Contact, params["id"])
+        conn
+        |> put_flash(:info, "Updated contact")
+        |> assign(:contact, contact)
+        |> render("show.html", changeset: Contact.changeset(contact), contact: contact)
+      {:error, err}  ->
+        contact = Repo.get!(Contact, params["id"])
+        conn
+        |> put_flash(:error, ErrorHelpers.get_errors(err))
+        |> assign(:contact, contact)
+        |> render("show.html", changeset: Contact.changeset(contact), contact: contact)
+    end
   end
 
   def show(conn, %{"id" => id}) do
