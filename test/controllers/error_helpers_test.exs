@@ -3,12 +3,12 @@ defmodule LoudsaInternal.ErrorHelpers.Test do
 
   alias LoudsaInternal.{ErrorHelpers, Contact}
 
-  @short_name %{name: "Bil", email: "bilbo@shire.com", phone: "(502)555-1234"}
+  @short_last_name %{first_name: "Bilbo", last_name: "B", elected_position: "chair", student_status: "student", member_status: "member", member_since: ~D[1937-09-21]}
 
   test "get_errors returns a name error" do
-    {:error, err} = Contact.changeset(%Contact{}, @short_name)
+    {:error, err} = Contact.changeset(%Contact{}, @short_last_name)
     |> Repo.insert
-    assert ErrorHelpers.get_errors(err) == [["name: should be at least %{count} character(s)"]]
+    assert ErrorHelpers.get_errors(err) == [["last_name: should be at least %{count} character(s)"]]
   end
 end
 

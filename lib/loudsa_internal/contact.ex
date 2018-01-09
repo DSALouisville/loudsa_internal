@@ -9,31 +9,28 @@ defmodule LoudsaInternal.Contact do
   alias LoudsaInternal.Contact
 
   schema "contacts" do
-    field :email, :string
-    field :name, :string
-    field :phone, :string
+    field :first_name, :string
+    field :last_name, :string
+    field :elected_position, :string
+    field :student_status, :string
+    field :member_status, :string
+    field :member_since, :date
+    
+    embeds_many :phones, LoudsaInternal.Phone
+    embeds_many :emails, LoudsaInternal.Email
+    embeds_one :address, LoudsaInternal.Address
 
     timestamps()
-  end
-
-  def clean_phone(phone) when is_binary(phone) do
-    phone
-    |> String.replace(~r/[^\d]/, "")
-  end
-
-  def clean_phone(phone) when is_nil(phone) do
-    phone
   end
 
   @doc false
   def changeset(%Contact{} = contact, attrs \\ %{}) do
     contact
-    |> cast(attrs, [:name, :email, :phone])
-    |> validate_required([:name])
-    |> validate_length(:name, min: 5)
-    |> validate_format(:phone, ~r/\([\d]{3}\)[\d]{3}-[\d]{4}/)
-    # credo:disable-for-next-line Credo.Check.Readability.MaxLineLength
-    |> validate_format(:email, ~r/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    |> cast(attrs, [:first_name, :last_name, :elected_position, :student_status, :member_status, :member_since])
+    |> cast_embed(:phones)
+    |> cast_embed(:emails)
+    |> cast_embed(:address)
+    |> validate_required([:first_name, :last_name])
+    |> validate_length(:last_name, min: 2)
   end
-
 end
