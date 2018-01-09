@@ -4,6 +4,7 @@ defmodule LoudsaInternal.Repo.Migrations.AddEmbedsToContacts do
   def change do
     alter table(:contacts) do
       remove :name
+      remove :email
       remove :phone
       
       add :first_name, :string
